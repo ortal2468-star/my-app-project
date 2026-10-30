@@ -14,7 +14,7 @@ const productsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fatchProducts.rejected, (state) => { state.products = [] })
-        builder.addCase(fatchProducts.fulfilled, (state, action) => { state.products = action.payload })
+        builder.addCase(fatchProducts.fulfilled, (state, action) => { state.products = action.payload.products })
         builder.addCase(fatchProducts.pending, (state) => { state.products = [] })
     }
 })
