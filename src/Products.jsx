@@ -2,12 +2,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 
 export default function Products() {
-    useEffect(()=>{
-        (async()=> {
-            const Base = await axios.get("https://fakestoreapi.com/products");
-        })();
 
-    },[])
 
     return (
         <div>
