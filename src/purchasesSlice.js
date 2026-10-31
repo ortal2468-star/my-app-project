@@ -8,7 +8,7 @@ const purchasesSlice = createSlice({
     },
     reducers: {
         calculateTotal: (state, action) => {
-            state.total = state.total + action.payload;
+            state.total += action.payload;
         }
     },
 })
