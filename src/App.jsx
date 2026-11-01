@@ -5,6 +5,7 @@ import Products from "./Products"
 import Customers from "./Customers"
 import Purchases from "./Purchases"
 import EditProduct from "./EditProduct"
+import EditCustomer from "./EditCustomer"
 import { NavLink, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Customers" element={<Customers />} />
         <Route path="/Purchases" element={<Purchases />} />
         <Route path="/EditProduct" element={<EditProduct />} />
+        <Route path="/EditCustomer" element={<EditCustomer />} />
       </Routes>
 
       <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Menu</NavLink>&nbsp;|&nbsp;

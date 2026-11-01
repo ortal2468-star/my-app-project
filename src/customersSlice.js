@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fatchCustomers = createAsyncThunk("customers/fatchCustomers", async () => {
-    const response = await axios.get("https://dummyjson.com/users");
+    const response = await axios.get("https://dummyjson.com/users?limit=0");
     return response.data;
 })
 

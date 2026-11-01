@@ -7,11 +7,14 @@ const purchasesSlice = createSlice({
         total: 0
     },
     reducers: {
+        addPurchase: (state, action) => {
+            state.purchases.push(action.payload);
+        },
         calculateTotal: (state, action) => {
             state.total += action.payload;
         }
     },
 })
 
-export const { calculateTotal } = purchasesSlice.actions;
+export const { calculateTotal, addPurchase } = purchasesSlice.actions;
 export default purchasesSlice.reducer;
