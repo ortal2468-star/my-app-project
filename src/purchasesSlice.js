@@ -13,4 +13,5 @@ const purchasesSlice = createSlice({
     },
 })
 
+export const { calculateTotal } = purchasesSlice.actions;
 export default purchasesSlice.reducer;
