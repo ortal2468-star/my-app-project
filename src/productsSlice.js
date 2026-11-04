@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fatchProducts = createAsyncThunk("products/fatchProducts", async () => {
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
     const response = await axios.get("https://dummyjson.com/products")
     return response.data;
 })
@@ -13,9 +13,9 @@ const productsSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fatchProducts.rejected, (state) => { state.products = [] })
-        builder.addCase(fatchProducts.fulfilled, (state, action) => { state.products = action.payload.products })
-        builder.addCase(fatchProducts.pending, (state) => { state.products = [] })
+        builder.addCase(fetchProducts.rejected, (state) => { state.products = [] })
+        builder.addCase(fetchProducts.fulfilled, (state, action) => { state.products = action.payload.products })
+        builder.addCase(fetchProducts.pending, (state) => { state.products = [] })
     }
 })
 

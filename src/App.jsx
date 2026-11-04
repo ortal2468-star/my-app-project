@@ -20,8 +20,8 @@ function App() {
         <Route path="/Products" element={<Products />} />
         <Route path="/Customers" element={<Customers />} />
         <Route path="/Purchases" element={<Purchases />} />
-        <Route path="/EditProduct" element={<EditProduct />} />
-        <Route path="/EditCustomer" element={<EditCustomer />} />
+        <Route path="/EditProduct/:productId" element={<EditProduct />} />
+        <Route path="/EditCustomer/:customerName" element={<EditCustomer />} />
       </Routes>
 
       <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Menu</NavLink>&nbsp;|&nbsp;

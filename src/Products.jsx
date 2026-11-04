@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { fatchProducts } from './productsSlice'
+import { fetchProducts } from './productsSlice'
 import { calculateTotal, addPurchase } from './purchasesSlice'
-import { fatchCustomers } from './customersSlice'
+import { fetchCustomers } from './customersSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Autocomplete, Grid, Typography, TextField } from '@mui/material'
 import { Link } from 'react-router-dom'
@@ -16,8 +16,8 @@ export default function Products() {
     const [openRow, setOpenRow] = useState(null);
 
     useEffect(() => {
-        dispatch(fatchProducts())
-        dispatch(fatchCustomers())
+        dispatch(fetchProducts())
+        dispatch(fetchCustomers())
     }, [dispatch])
 
     return (
@@ -31,7 +31,7 @@ export default function Products() {
                     {
                         products.map((product) => (
                             <Grid key={product.id} item xs={12} sm={6} md={4}>
-                                Name: <Link to="/EditProduct">{product.title}</Link><br />
+                                Name: <Link to={`/EditProduct/${product.id}`}>{product.title}</Link><br />
                                 <Typography variant='h6'>Price: {product.price}$</Typography>
                                 <Typography variant='h6'>Quantity: {product.stock}</Typography>
                                 <div>Customers who purchased:
@@ -41,48 +41,49 @@ export default function Products() {
                                             return (
                                                 <div key={index}>
                                                     Customers Name:
-                                                    <Link to={"/EditCustomer"}>
+                                                    <Link to={`/EditCustomer/${customer.reviewerName}`}>
                                                         {customer.reviewerName}
-                                                </Link><br />
-                                                Date of purchase: {new Date(customer.date).toLocaleString()} <br />
-                                                <button onClick={() => {
-                                                    const rowId = `${product.id}-${index}`;
-                                                    setOpenRow(prev => prev === rowId ? null : rowId);
-                                                }}>Add</button>
-                                                {openRow === `${product.id}-${index}` && (
-                                                    <div>
-                                                        <Autocomplete
-                                                            options={products}
-                                                            getOptionLabel={(option) => option.title}
-                                                            value={selectedProduct}
-                                                            onChange={(event, newValue) => {
-                                                                setSelectedProduct(newValue);
-                                                            }}
-                                                            renderInput={(params) => (
-                                                                <TextField
-                                                                    {...params}
-                                                                    label="Select Product"
-                                                                />
-                                                            )}
-                                                        />
-                                                        <button
-                                                            disabled={!selectedProduct}
-                                                            onClick={() => {
-                                                                dispatch(calculateTotal(selectedProduct.price))
-                                                                dispatch(addPurchase({
-                                                                    id: nanoid(),
-                                                                    customerId: foundCustomer.id,
-                                                                    productId: selectedProduct.id,
-                                                                    date: new Date().toISOString(),
-                                                                }))
-                                                            }}>
-                                                            save
-                                                        </button>
-                                                    </div>
-                                                )}
-                                                
-                                            </div>
-                                        )})}
+                                                    </Link><br />
+                                                    Date of purchase: {new Date(customer.date).toLocaleString()} <br />
+                                                    <button onClick={() => {
+                                                        const rowId = `${product.id}-${index}`;
+                                                        setOpenRow(prev => prev === rowId ? null : rowId);
+                                                    }}>Add</button>
+                                                    {openRow === `${product.id}-${index}` && (
+                                                        <div>
+                                                            <Autocomplete
+                                                                options={products}
+                                                                getOptionLabel={(option) => option.title}
+                                                                value={selectedProduct}
+                                                                onChange={(event, newValue) => {
+                                                                    setSelectedProduct(newValue);
+                                                                }}
+                                                                renderInput={(params) => (
+                                                                    <TextField
+                                                                        {...params}
+                                                                        label="Select Product"
+                                                                    />
+                                                                )}
+                                                            />
+                                                            <button
+                                                                disabled={!selectedProduct}
+                                                                onClick={() => {
+                                                                    dispatch(calculateTotal(selectedProduct.price))
+                                                                    dispatch(addPurchase({
+                                                                        id: nanoid(),
+                                                                        customerId: foundCustomer.id,
+                                                                        productId: selectedProduct.id,
+                                                                        date: new Date().toISOString(),
+                                                                    }))
+                                                                }}>
+                                                                save
+                                                            </button>
+                                                        </div>
+                                                    )}
+
+                                                </div>
+                                            )
+                                        })}
                                 </div>
                             </Grid>
                         ))}
