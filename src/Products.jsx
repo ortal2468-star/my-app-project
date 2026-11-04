@@ -44,7 +44,7 @@ export default function Products() {
                                                     <Link to={"/EditCustomer"}>
                                                         {customer.reviewerName}
                                                 </Link><br />
-                                                Date of purchase: {customer.date} <br />
+                                                Date of purchase: {new Date(customer.date).toLocaleString()} <br />
                                                 <button onClick={() => {
                                                     const rowId = `${product.id}-${index}`;
                                                     setOpenRow(prev => prev === rowId ? null : rowId);
