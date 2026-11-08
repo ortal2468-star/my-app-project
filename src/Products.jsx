@@ -9,10 +9,12 @@ import { nanoid } from '@reduxjs/toolkit'
 
 export default function Products() {
     const dispatch = useDispatch()
+
     const products = useSelector((state) => state.products.products)
     const purchases = useSelector((state) => state.purchases.purchases)
     const purchasesTotal = useSelector((state) => state.purchases.total)
     const customers = useSelector((state) => state.customers.customers)
+    
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [openRow, setOpenRow] = useState(null);
 

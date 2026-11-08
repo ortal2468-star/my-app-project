@@ -11,7 +11,17 @@ const productsSlice = createSlice({
     initialState: {
         products: []
     },
-    reducers: {},
+    reducers: {
+        updateProduct: (state, action) => {
+            const product = state.products.find(
+                p => p.id === action.payload.id);
+            if (product) {
+                product.title = action.payload.title;
+                product.price = action.payload.price;
+                product.stock = action.payload.stock;
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.rejected, (state) => { state.products = [] })
         builder.addCase(fetchProducts.fulfilled, (state, action) => { state.products = action.payload.products })
@@ -19,4 +29,5 @@ const productsSlice = createSlice({
     }
 })
 
+export const { updateProduct } = productsSlice.actions;
 export default productsSlice.reducer;
