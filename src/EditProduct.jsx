@@ -29,7 +29,7 @@ export default function EditProduct() {
         <div key={foundProduct?.id}>
           {foundProduct?.reviews?.map((customer, index) => (
             <div key={index}>
-              <Link to={`/EditCustomer/${customer.reviewerName}`}>
+            Customers Name: <Link to={`/EditCustomer/${customer.reviewerName}`}>
                 {customer.reviewerName}
               </Link>
             </div>
