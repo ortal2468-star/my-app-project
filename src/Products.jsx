@@ -41,7 +41,8 @@ export default function Products() {
 
                                             <div key={index}>
                                                 Customers Name:
-                                                <Link to={`/EditCustomer/${purchase.customerId}`}>{customers.find(c => c.id === purchase.customerId)?.name}
+                                                <Link to={`/EditCustomer/${purchase.customerId}`}>
+                                                {customers.find(c => c.id === purchase.customerId)?.name}
                                                 </Link><br />
                                                 Date of purchase: {new Date(purchase.date).toLocaleString()} <br />
                                                 <button onClick={() => {

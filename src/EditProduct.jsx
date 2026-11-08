@@ -9,6 +9,8 @@ import { fetchProducts } from './productsSlice'
 export default function EditProduct() {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.products.products)
+  const purchases = useSelector((state) => state.purchases.purchases)
+  const customers = useSelector((state) => state.customers.customers)
   const { productId } = useParams();
   const foundProduct = products.find(p => p.id === Number(productId));
 
@@ -26,12 +28,14 @@ export default function EditProduct() {
         Customers Name:
 
 
-        <div key={foundProduct?.id}>
-          {foundProduct?.reviews?.map((customer, index) => (
+        <div>
+          {purchases.filter((purchase) => purchase.productId === foundProduct?.id)
+          .map((purchase, index) => (
             <div key={index}>
-            Customers Name: <Link to={`/EditCustomer/${customer.reviewerName}`}>
-                {customer.reviewerName}
-              </Link>
+              Customers Name:
+              <Link to={`/EditCustomer/${purchase.customerId}`}>
+                {customers.find(c => c.id === purchase.customerId)?.name}
+              </Link><br />
             </div>
           ))}
         </div>
