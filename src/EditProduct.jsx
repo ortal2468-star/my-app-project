@@ -25,18 +25,16 @@ export default function EditProduct() {
 
       </div>
       <div>
-        Customers Name:
-
-
+        Customers who purchased:
         <div>
           {purchases.filter((purchase) => purchase.productId === foundProduct?.id)
             .map((purchase, index) => (
-              <div key={index}>
+              <div key={purchase.id}>
                 Customers Name:
                 <Link to={`/EditCustomer/${purchase.customerId}`}>
-                  {customers.find(c => c.id === purchase. 
-                    customerId)?.firstName}
-                  {customers.find(c => c.id === purchase.   
+                  {customers.find(c => c.id === purchase.
+                    customerId)?.firstName}{" "}
+                  {customers.find(c => c.id === purchase.
                     customerId)?.lestName}
                 </Link><br />
               </div>

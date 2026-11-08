@@ -39,11 +39,11 @@ export default function Products() {
                                     {purchases.filter((purchase) => purchase.productId === product.id)
                                         .map((purchase, index) => {
 
-                                            <div key={index}>
+                                            <div key={purchase.id}>
                                                 Customers Name:
                                                 <Link to={`/EditCustomer/${purchase.customerId}`}>
                                                     {customers.find(c => c.id === purchase.
-                                                        customerId)?.firstName}
+                                                        customerId)?.firstName}{" "}
                                                     {customers.find(c => c.id === purchase.
                                                         customerId)?.lestName}
                                                 </Link><br />
