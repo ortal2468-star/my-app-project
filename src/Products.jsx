@@ -11,7 +11,7 @@ export default function Products() {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products.products)
     const purchases = useSelector((state) => state.purchases.purchases)
-    const purchasesTotal =useSelector((state) => state.purchases.total)
+    const purchasesTotal = useSelector((state) => state.purchases.total)
     const customers = useSelector((state) => state.customers.customers)
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [openRow, setOpenRow] = useState(null);
@@ -42,7 +42,10 @@ export default function Products() {
                                             <div key={index}>
                                                 Customers Name:
                                                 <Link to={`/EditCustomer/${purchase.customerId}`}>
-                                                {customers.find(c => c.id === purchase.customerId)?.name}
+                                                    {customers.find(c => c.id === purchase.
+                                                        customerId)?.firstName}
+                                                    {customers.find(c => c.id === purchase.
+                                                        customerId)?.lestName}
                                                 </Link><br />
                                                 Date of purchase: {new Date(purchase.date).toLocaleString()} <br />
                                                 <button onClick={() => {
