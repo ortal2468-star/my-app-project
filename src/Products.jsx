@@ -14,14 +14,17 @@ export default function Products() {
     const purchases = useSelector((state) => state.purchases.purchases)
     const purchasesTotal = useSelector((state) => state.purchases.total)
     const customers = useSelector((state) => state.customers.customers)
-    
+    const isLoading = useSelector((state) => state.products.isLoading);
+
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [openRow, setOpenRow] = useState(null);
 
     useEffect(() => {
-        dispatch(fetchProducts())
+        if (!isLoading) {
+            dispatch(fetchProducts());
+        }
         dispatch(fetchCustomers())
-    }, [dispatch])
+    }, [dispatch, isLoading]);
 
     return (
         <div>

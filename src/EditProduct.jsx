@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { fetchProducts } from './productsSlice'
-import { updateProduct } from './productsSlice'
+import { deletePurchases } from './purchasesSlice'
+import { fetchProducts, updateProduct, deleteProduct } from './productsSlice'
 
 
 
@@ -39,23 +39,31 @@ export default function EditProduct() {
         Product Name: <input
           type="text"
           value={titel}
-          onChange={(e) => setTitel(e.target.value)} /><br/>
+          onChange={(e) => setTitel(e.target.value)} /><br />
         Product Price: <input
           type="text"
           value={price}
-          onChange={(e) => setPrice(e.target.value)} /><br/>
+          onChange={(e) => setPrice(e.target.value)} /><br />
         Product Quantity: <input
           type="text"
           value={stock}
-          onChange={(e) => setStock(e.target.value)} /><br/>
+          onChange={(e) => setStock(e.target.value)} /><br />
         <button disabled={!foundProduct} onClick={() => {
           dispatch(updateProduct({
             id: foundProduct.id,
             title: titel,
-            price: Nember(price),
-            stock: Nember(stock)
+            price: Number(price),
+            stock: Number(stock)
           }))
         }}>Update</button>
+        <button disabled={!foundProduct} onClick={() => {
+          dispatch(deleteProduct({
+            id: foundProduct.id
+          }));
+          dispatch(deletePurchases({
+            productId: foundProduct.id
+          }));
+        }}>Delete</button>
 
       </div>
       <div>
