@@ -56,16 +56,16 @@ export default function EditCustomer() {
         products purchased by this customer:
         <div>
           {purchases.filter(purchase => purchase.customerId === foundCustomer?.id)
-        .map(purchase => {
-          <div key={purchase.id}>
-            Product Name:
-            <Link to={`/EditProduct/${purchase.productId}`}>
-              {products.find(p => p.id === purchase.
-                productId)?.title}
-            </Link><br/>
-          </div>
-        }
-        )}
+            .map(purchase => {
+              <div key={purchase.id}>
+                Product Name:
+                <Link to={`/EditProduct/${purchase.productId}`}>
+                  {products.find(p => p.id === purchase.
+                    productId)?.title}
+                </Link><br />
+              </div>
+            }
+            )}
         </div>
       </div>
     </div>
