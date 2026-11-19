@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchCustomers, updateCustomer, deleteCustomer } from './customersSlice';
 import { fetchProducts } from './productsSlice'
+import { deletePurchasesByCustomer } from './purchasesSlice'
 
 export default function EditCustomer() {
   const dispatch = useDispatch()
@@ -11,7 +12,8 @@ export default function EditCustomer() {
   const products = useSelector((state) => state.products.products)
   const purchases = useSelector((state) => state.purchases.purchases)
 
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -24,13 +26,14 @@ export default function EditCustomer() {
     if (!isCustomersLoaded) {
       dispatch(fetchCustomers())
     }
-    if(!isProductsLoaded){
+    if (!isProductsLoaded) {
       dispatch(fetchProducts())
     }
   }, [dispatch, isCustomersLoaded, isProductsLoaded])
   useEffect(() => {
     if (foundCustomer) {
-      setName(foundCustomer.name);
+      setFirstName(foundCustomer.firstName);
+      setLastName(foundCustomer.lastName);
       setEmail(foundCustomer.email);
       setPhone(foundCustomer.phone);
     }
@@ -40,10 +43,14 @@ export default function EditCustomer() {
     <div>
       EditCustomer:
       <div>
-        Customer Name: <input
+        Customer  First Name: <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)} /><br />
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)} /><br />
+        Customer  Last Name: <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)} /><br />
         Customer Email: <input
           type="text"
           value={email}
@@ -55,7 +62,8 @@ export default function EditCustomer() {
         <button disabled={!foundCustomer} onClick={() => {
           dispatch(updateCustomer({
             id: foundCustomer.id,
-            name: name,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             phone: phone
           }))
@@ -63,6 +71,9 @@ export default function EditCustomer() {
         <button disabled={!foundCustomer} onClick={() => {
           dispatch(deleteCustomer({
             id: foundCustomer.id
+          }));
+          dispatch(deletePurchasesByCustomer({
+            customerId: foundCustomer.id
           }));
         }}>Delete</button>
       </div>

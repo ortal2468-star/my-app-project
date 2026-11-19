@@ -17,7 +17,8 @@ const customersSlice = createSlice({
             const customer = state.customers.find(
                 c => c.id === action.payload.id);
             if (customer) {
-                customer.name = action.payload.name;
+                customer.firstName = action.payload.firstName;
+                customer.lastName = action.payload.lastName;
                 customer.email = action.payload.email;
                 customer.phone = action.payload.phone;
             }
