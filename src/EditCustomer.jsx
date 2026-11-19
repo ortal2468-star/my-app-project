@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { fetchCustomers, updateCustomer, deleteCustomer } from './customersSlice';
 
 export default function EditCustomer() {
   const dispatch = useDispatch()
   const { customerId } = useParams();
   const customers = useSelector((state) => state.customers.customers)
 
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const foundCustomer = customers.find(c => c.id === Number(customerId));
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -15,9 +15,9 @@ export default function EditProduct() {
   const purchases = useSelector((state) => state.purchases.purchases)
   const customers = useSelector((state) => state.customers.customers)
 
-  const [titel, setTitel] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [stock, setStock] = React.useState('');
+  const [titel, setTitel] = useState('');
+  const [price, setPrice] = useState('');
+  const [stock, setStock] = useState('');
 
   const foundProduct = products.find(p => p.id === Number(productId));
 
