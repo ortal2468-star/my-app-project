@@ -11,7 +11,21 @@ const customersSlice = createSlice({
     initialState: {
         customers: []
     },
-    reducers: {},
+    reducers: {
+        updateCustomer: (state, action) => {
+            const customer = state.customers.find(
+                c => c.id === action.payload.id);
+            if (customer) {
+                customer.name = action.payload.name;
+                customer.email = action.payload.email;
+                customer.phone = action.payload.phone;
+            }
+        },
+        deleteCustomer: (state, action) => {
+            state.customers = state.customers.filter(
+                c => c.id !== action.payload.id);
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchCustomers.rejected, (state) => { state.customers = [] })
         builder.addCase(fetchCustomers.fulfilled, (state, action) => { state.customers = action.payload })
@@ -19,4 +33,5 @@ const customersSlice = createSlice({
     }
 })
 
+export const { updateCustomer, deleteCustomer } = customersSlice.actions;
 export default customersSlice.reducer;
