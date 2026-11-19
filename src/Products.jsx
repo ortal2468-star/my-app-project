@@ -14,17 +14,21 @@ export default function Products() {
     const purchases = useSelector((state) => state.purchases.purchases)
     const purchasesTotal = useSelector((state) => state.purchases.total)
     const customers = useSelector((state) => state.customers.customers)
-    const isLoading = useSelector((state) => state.products.isLoading);
 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [openRow, setOpenRow] = useState(null);
 
+    const isCustomersLoaded = useSelector((state) => state.customers.isLoaded)
+    const isProductsLoaded = useSelector((state) => state.products.isLoaded)
+
     useEffect(() => {
-        if (!isLoading) {
-            dispatch(fetchProducts());
+        if (!isCustomersLoaded) {
+            dispatch(fetchCustomers())
         }
-        dispatch(fetchCustomers())
-    }, [dispatch, isLoading]);
+        if (!isProductsLoaded) {
+        dispatch(fetchProducts())
+        }
+    }, [dispatch, isCustomersLoaded, isProductsLoaded])
 
     return (
         <div>

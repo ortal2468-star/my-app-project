@@ -3,13 +3,14 @@ import axios from "axios";
 
 export const fetchCustomers = createAsyncThunk("customers/fetchCustomers", async () => {
     const response = await axios.get("https://dummyjson.com/users?limit=2");
-    return response.data;
+    return response.data.users;
 })
 
 const customersSlice = createSlice({
     name: "customers",
     initialState: {
-        customers: []
+        customers: [],
+        isLoaded: false
     },
     reducers: {
         updateCustomer: (state, action) => {
@@ -28,7 +29,9 @@ const customersSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCustomers.rejected, (state) => { state.customers = [] })
-        builder.addCase(fetchCustomers.fulfilled, (state, action) => { state.customers = action.payload })
+        builder.addCase(fetchCustomers.fulfilled, (state, action) => { state.customers = action.payload ;
+            state.isLoaded = true;
+         })
         builder.addCase(fetchCustomers.pending, (state) => { state.customers = [] })
     }
 })

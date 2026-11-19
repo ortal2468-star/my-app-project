@@ -5,8 +5,6 @@ import { useParams } from 'react-router-dom'
 import { deletePurchases } from './purchasesSlice'
 import { fetchProducts, updateProduct, deleteProduct } from './productsSlice'
 
-
-
 export default function EditProduct() {
   const dispatch = useDispatch()
   const { productId } = useParams();
@@ -19,11 +17,15 @@ export default function EditProduct() {
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
 
+  const isProductsLoaded = useSelector((state) => state.products.isLoaded)
+
   const foundProduct = products.find(p => p.id === Number(productId));
 
   useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
+    if (!isProductsLoaded) {
+      dispatch(fetchProducts())
+    }
+  }, [dispatch, isProductsLoaded])
   useEffect(() => {
     if (foundProduct) {
       setTitel(foundProduct.title);

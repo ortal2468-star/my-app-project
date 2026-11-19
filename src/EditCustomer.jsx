@@ -14,9 +14,13 @@ export default function EditCustomer() {
 
   const foundCustomer = customers.find(c => c.id === Number(customerId));
 
+  const isCustomersLoaded = useSelector((state) => state.customers.isLoaded)
+
   useEffect(() => {
-    dispatch(fetchCustomers())
-  }, [dispatch])
+    if (!isCustomersLoaded) {
+      dispatch(fetchCustomers())
+    }
+  }, [dispatch, isCustomersLoaded])
   useEffect(() => {
     if (foundCustomer) {
       setName(foundCustomer.name);

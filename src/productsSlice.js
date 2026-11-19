@@ -10,7 +10,7 @@ const productsSlice = createSlice({
     name: "products",
     initialState: {
         products: [],
-        isLoading: false
+        isLoaded: false
     },
     reducers: {
         updateProduct: (state, action) => {
@@ -30,8 +30,8 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.rejected, (state) => { state.products = [] })
-        builder.addCase(fetchProducts.fulfilled, (state, action) => { state.products = action.payload.products ,
-             state.isLoading = true })
+        builder.addCase(fetchProducts.fulfilled, (state, action) => { state.products = action.payload.products ;
+             state.isLoaded = true })
         builder.addCase(fetchProducts.pending, (state) => { state.products = [] })
     }
 })
