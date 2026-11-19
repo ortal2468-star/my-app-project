@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchCustomers, updateCustomer, deleteCustomer } from './customersSlice';
+import { fetchProducts } from './productsSlice'
 
 export default function EditCustomer() {
   const dispatch = useDispatch()
   const { customerId } = useParams();
   const customers = useSelector((state) => state.customers.customers)
+  const products = useSelector((state) => state.products.products)
+  const purchases = useSelector((state) => state.purchases.purchases)
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,12 +18,16 @@ export default function EditCustomer() {
   const foundCustomer = customers.find(c => c.id === Number(customerId));
 
   const isCustomersLoaded = useSelector((state) => state.customers.isLoaded)
+  const isProductsLoaded = useSelector((state) => state.products.isLoaded)
 
   useEffect(() => {
     if (!isCustomersLoaded) {
       dispatch(fetchCustomers())
     }
-  }, [dispatch, isCustomersLoaded])
+    if(!isProductsLoaded){
+      dispatch(fetchProducts())
+    }
+  }, [dispatch, isCustomersLoaded, isProductsLoaded])
   useEffect(() => {
     if (foundCustomer) {
       setName(foundCustomer.name);
@@ -64,13 +71,15 @@ export default function EditCustomer() {
         <div>
           {purchases.filter(purchase => purchase.customerId === foundCustomer?.id)
             .map(purchase => {
-              <div key={purchase.id}>
-                Product Name:
-                <Link to={`/EditProduct/${purchase.productId}`}>
-                  {products.find(p => p.id === purchase.
-                    productId)?.title}
-                </Link><br />
-              </div>
+              return (
+                <div key={purchase.id}>
+                  Product Name:
+                  <Link to={`/EditProduct/${purchase.productId}`}>
+                    {products.find(p => p.id === purchase.
+                      productId)?.title}
+                  </Link><br />
+                </div>
+              )
             }
             )}
         </div>

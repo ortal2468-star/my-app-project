@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { deletePurchases } from './purchasesSlice'
 import { fetchProducts, updateProduct, deleteProduct } from './productsSlice'
+import { fetchCustomers } from './customersSlice';
+
 
 export default function EditProduct() {
   const dispatch = useDispatch()
@@ -19,13 +21,17 @@ export default function EditProduct() {
 
   const isProductsLoaded = useSelector((state) => state.products.isLoaded)
 
+  const isCustomersLoaded = useSelector((state) => state.customers.isLoaded)
   const foundProduct = products.find(p => p.id === Number(productId));
 
   useEffect(() => {
+    if (!isCustomersLoaded) {
+      dispatch(fetchCustomers())
+    }
     if (!isProductsLoaded) {
       dispatch(fetchProducts())
     }
-  }, [dispatch, isProductsLoaded])
+  }, [dispatch, isCustomersLoaded ,isProductsLoaded])
   useEffect(() => {
     if (foundProduct) {
       setTitel(foundProduct.title);
